@@ -1,0 +1,754 @@
+
+/* =========================================================
+   CLEAN PROFESSIONAL AI VOICE CLONING UI
+   Compact • Elegant • Non-Overlapping Layout
+========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* =========================================================
+   ROOT VARIABLES
+========================================================= */
+
+:root {
+
+  --bg-primary: #050816;
+  --bg-secondary: #0f172a;
+
+  --card-bg: rgba(15, 23, 42, 0.72);
+
+  --card-border:
+    rgba(255,255,255,0.08);
+
+  --primary: #8b5cf6;
+  --primary-hover: #7c3aed;
+
+  --secondary: #38bdf8;
+
+  --success: #22c55e;
+  --danger: #ef4444;
+
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+
+  --radius-xl: 22px;
+  --radius-lg: 14px;
+
+  --shadow-main:
+    0 10px 30px rgba(0,0,0,0.32);
+
+  --transition:
+    all 0.25s ease;
+}
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+
+  font-family: 'Inter', sans-serif;
+
+  background:
+    linear-gradient(
+      145deg,
+      #050816,
+      #081122,
+      #0f172a
+    );
+
+  color: white;
+}
+
+/* =========================================================
+   BACKGROUND GLOW
+========================================================= */
+
+body::before {
+
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(139,92,246,0.16),
+      transparent 30%
+    ),
+
+    radial-gradient(
+      circle at bottom right,
+      rgba(56,189,248,0.10),
+      transparent 28%
+    );
+
+  z-index: -1;
+}
+
+/* =========================================================
+   APP ROOT
+========================================================= */
+
+.app-root {
+
+  width: 100%;
+  min-height: 100vh;
+
+  padding:
+    14px
+    2px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.app-content {
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+/* =========================================================
+   HERO SECTION
+========================================================= */
+
+.hero {
+
+  width: 100%;
+
+  padding:
+    8px
+    3px;
+
+  border-radius: var(--radius-xl);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(139,92,246,0.14),
+      rgba(15,23,42,0.88)
+    );
+
+  border:
+    1px solid rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(16px);
+
+  box-shadow: var(--shadow-main);
+
+  text-align: center;
+
+  overflow: hidden;
+}
+
+/* REMOVE ICON */
+
+.hero-icon {
+  display: none;
+}
+
+/* =========================================================
+   HERO TITLE
+========================================================= */
+
+.hero-title {
+
+  font-size:
+    clamp(1.9rem, 3vw, 3rem);
+
+  font-weight: 800;
+
+  line-height: 1.2;
+
+  letter-spacing: -1px;
+
+  margin-bottom: 28px;
+
+  word-break: break-word;
+}
+
+/* =========================================================
+   HERO DESCRIPTION
+========================================================= */
+
+.hero-copy {
+
+  max-width: 900px;
+
+  margin: auto;
+
+  font-size: 0.90rem;
+
+  line-height: 1.6;
+
+  color: var(--text-secondary);
+}
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.card {
+
+  width: 100%;
+
+  padding:
+    6px
+    8px;
+
+  border-radius: var(--radius-xl);
+
+  background: var(--card-bg);
+
+  border:
+    1px solid var(--card-border);
+
+  backdrop-filter: blur(18px);
+
+  box-shadow: var(--shadow-main);
+
+  transition: var(--transition);
+}
+
+.card:hover {
+
+  border-color:
+    rgba(139,92,246,0.22);
+}
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.card-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 18px;
+}
+
+/* =========================================================
+   LABELS
+========================================================= */
+
+.section-label {
+
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.description {
+
+  color: var(--text-muted);
+
+  font-size: 0.82rem;
+
+  line-height: 1.5;
+
+  margin-bottom: 10px;
+}
+
+/* =========================================================
+   TARGET TEXT AREA
+========================================================= */
+
+.text-area {
+
+  width: 100%;
+
+  min-height: 88px;
+  max-height: 110px;
+
+  border-radius: var(--radius-lg);
+
+  border:
+    1px solid rgba(255,255,255,0.08);
+
+  background:
+    rgba(255,255,255,0.03);
+
+  padding:
+    12px
+    14px;
+
+  color: white;
+
+  font-size: 0.90rem;
+
+  line-height: 1.5;
+
+  resize: none;
+
+  outline: none;
+
+  transition: var(--transition);
+}
+
+.text-area:focus {
+
+  border-color:
+    rgba(139,92,246,0.7);
+
+  box-shadow:
+    0 0 0 4px rgba(139,92,246,0.12);
+}
+
+.text-area::placeholder {
+
+  color:
+    rgba(255,255,255,0.38);
+}
+
+/* =========================================================
+   FIELD NOTE
+========================================================= */
+
+.field-note {
+
+  margin-top: 6px;
+
+  font-size: 0.78rem;
+
+  color: var(--text-muted);
+}
+
+/* =========================================================
+   FILE INPUT
+========================================================= */
+
+.file-input {
+
+  width: 260px;
+
+  padding:
+    8px
+    10px;
+
+  border-radius: var(--radius-lg);
+
+  border:
+    1px dashed rgba(255,255,255,0.12);
+
+  background:
+    rgba(255,255,255,0.03);
+
+  color: var(--text-secondary);
+
+  font-size: 0.80rem;
+
+  cursor: pointer;
+
+  transition: var(--transition);
+}
+
+.file-input:hover {
+
+  border-color:
+    rgba(139,92,246,0.7);
+
+  background:
+    rgba(139,92,246,0.05);
+}
+
+/* =========================================================
+   BUTTON ROW
+========================================================= */
+
+.button-row {
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 12px;
+
+  margin-top: 8px;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn {
+
+  border: none;
+  outline: none;
+
+  border-radius: 12px;
+
+  padding:
+    10px
+    16px;
+
+  font-size: 0.82rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: var(--transition);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  white-space: nowrap;
+}
+
+/* PRIMARY */
+
+.primary-btn {
+
+  background:
+    linear-gradient(
+      135deg,
+      #8b5cf6,
+      #7c3aed
+    );
+
+  color: white;
+
+  box-shadow:
+    0 8px 20px rgba(139,92,246,0.22);
+}
+
+.primary-btn:hover:not(:disabled) {
+
+  transform:
+    translateY(-2px);
+}
+
+/* SECONDARY */
+
+.secondary-btn {
+
+  background:
+    rgba(255,255,255,0.05);
+
+  color: white;
+
+  border:
+    1px solid rgba(255,255,255,0.08);
+}
+
+.secondary-btn:hover:not(:disabled) {
+
+  background:
+    rgba(255,255,255,0.08);
+}
+
+/* DANGER */
+
+.danger-btn {
+
+  background:
+    linear-gradient(
+      135deg,
+      #ef4444,
+      #dc2626
+    );
+
+  color: white;
+}
+
+.danger-btn:hover:not(:disabled) {
+
+  transform:
+    translateY(-2px);
+}
+
+/* =========================================================
+   GENERATE BUTTON
+========================================================= */
+
+.full-width {
+
+  width: 100%;
+
+  padding:
+    12px;
+
+  font-size: 0.92rem;
+}
+
+/* =========================================================
+   RECORDING INDICATOR
+========================================================= */
+
+.recording-indicator {
+
+  margin-top: 8px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  color: #fca5a5;
+
+  font-size: 0.80rem;
+  font-weight: 600;
+}
+
+.recording-dot {
+
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+
+  background: #ef4444;
+
+  animation:
+    pulse 1s infinite;
+}
+
+@keyframes pulse {
+
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.4);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* =========================================================
+   AUDIO CARD
+========================================================= */
+
+.audio-card {
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.audio-label {
+
+  font-size: 0.90rem;
+  font-weight: 700;
+}
+
+.audio-player {
+
+  width: 100%;
+
+  height: 44px;
+
+  border-radius: 10px;
+}
+
+/* =========================================================
+   AUDIO ACTIONS
+========================================================= */
+
+.audio-actions {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+}
+
+/* =========================================================
+   DOWNLOAD BUTTON
+========================================================= */
+
+.audio-download {
+
+  text-decoration: none;
+
+  padding:
+    10px
+    16px;
+
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0ea5e9,
+      #38bdf8
+    );
+
+  color: white;
+
+  font-size: 0.82rem;
+  font-weight: 700;
+
+  transition: var(--transition);
+}
+
+.audio-download:hover {
+
+  transform:
+    translateY(-2px);
+}
+
+/* =========================================================
+   MESSAGE BOX
+========================================================= */
+
+.message-box {
+
+  width: 100%;
+
+  border-radius: 14px;
+
+  padding:
+    10px
+    14px;
+
+  font-size: 0.82rem;
+  font-weight: 600;
+
+  line-height: 1.5;
+}
+
+.message-error {
+
+  background:
+    rgba(239,68,68,0.10);
+
+  border:
+    1px solid rgba(239,68,68,0.18);
+
+  color: #fecaca;
+}
+
+.message-success {
+
+  background:
+    rgba(34,197,94,0.10);
+
+  border:
+    1px solid rgba(34,197,94,0.18);
+
+  color: #bbf7d0;
+}
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+
+  background:
+    linear-gradient(
+      180deg,
+      #8b5cf6,
+      #38bdf8
+    );
+
+  border-radius: 999px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .card-grid {
+
+    grid-template-columns: 1fr;
+  }
+
+  .file-input {
+
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .app-root {
+
+    padding: 12px;
+  }
+
+  .button-row {
+
+    justify-content: flex-start;
+  }
+
+  .btn,
+  .audio-download {
+
+    width: 100%;
+  }
+
+  .audio-actions {
+
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .hero-title {
+
+    font-size: 1.6rem;
+  }
+
+  .text-area {
+
+    min-height: 80px;
+  }
+}
+
