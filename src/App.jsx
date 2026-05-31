@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 
@@ -6,7 +6,6 @@ const DEFAULT_BACKEND_URL =
   "https://tutu-spookily-squishier.ngrok-free.dev/generate";
 
 function App() {
-
   const [text, setText] = useState("");
   const [audioFile, setAudioFile] = useState(null);
   const [audioPreviewUrl, setAudioPreviewUrl] = useState(null);
@@ -15,25 +14,31 @@ function App() {
   const [isRecording, setIsRecording] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-
+  const [recordingCompleted, setRecordingCompleted] = useState(false);
   const mediaRecorderRef = useRef(null);
   const chunksRef = useRef([]);
+  const [recordingDots, setRecordingDots] = useState("");
+  useEffect(() => {
+  if (!successMessage && !errorMessage) return;
 
-  // ===================================================
-  // START RECORDING
-  // ===================================================
+  const timer = setTimeout(() => {
+    setSuccessMessage("");
+    setErrorMessage("");
+  }, 3000);
 
+  return () => clearTimeout(timer);
+  }, [successMessage, errorMessage]);
   const startRecording = async () => {
     try {
-      const stream =
-        await navigator.mediaDevices.getUserMedia({
-          audio: true
-        });
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+      });
 
       const mediaRecorder = new MediaRecorder(stream);
       mediaRecorderRef.current = mediaRecorder;
       chunksRef.current = [];
       setIsRecording(true);
+      setRecordingCompleted(false);
       setErrorMessage("");
       setSuccessMessage("");
 
@@ -43,17 +48,18 @@ function App() {
 
       mediaRecorder.onstop = () => {
         const blob = new Blob(chunksRef.current, {
-          type: "audio/wav"
+          type: "audio/wav",
         });
 
         const file = new File([blob], "recorded.wav", {
-          type: "audio/wav"
+          type: "audio/wav",
         });
 
         const previewUrl = URL.createObjectURL(blob);
         setAudioFile(file);
         setAudioPreviewUrl(previewUrl);
         setIsRecording(false);
+        setRecordingCompleted(true);
         setSuccessMessage("Voice sample recorded successfully.");
       };
 
@@ -64,20 +70,26 @@ function App() {
       setErrorMessage("Microphone access denied or unsupported browser.");
     }
   };
+  useEffect(() => {
+  if (!isRecording) {
+    setRecordingDots("");
+    return;
+  }
 
-  // ===================================================
-  // STOP RECORDING
-  // ===================================================
+  const interval = setInterval(() => {
+    setRecordingDots((prev) => {
+      if (prev === "...") return "";
+      return prev + ".";
+    });
+  }, 500);
 
+  return () => clearInterval(interval);
+}, [isRecording]);
   const stopRecording = () => {
     if (mediaRecorderRef.current) {
       mediaRecorderRef.current.stop();
     }
   };
-
-  // ===================================================
-  // SET AUDIO FILE
-  // ===================================================
 
   const handleFileUpload = (file) => {
     if (!file) {
@@ -93,20 +105,18 @@ function App() {
     setErrorMessage("");
   };
 
-  // ===================================================
-  // CLEAR AUDIO
-  // ===================================================
-
   const clearAudio = () => {
     setAudioFile(null);
     setAudioPreviewUrl(null);
+    setRecordingCompleted(false);
+    setErrorMessage("");
     setSuccessMessage("Voice sample cleared.");
   };
-
-  // ===================================================
-  // GENERATE AUDIO
-  // ===================================================
-
+  const clearOutputAudio = () => {
+  setGeneratedAudio(null);
+  setSuccessMessage("");
+  setErrorMessage("");
+};
   const generateAudio = async () => {
     if (!text.trim()) {
       setErrorMessage("Please add text before generating.");
@@ -125,12 +135,13 @@ function App() {
       }
 
       const response = await axios.post(DEFAULT_BACKEND_URL.trim(), formData, {
-        responseType: "blob"
+        responseType: "blob",
       });
 
       const audioUrl = URL.createObjectURL(response.data);
       setGeneratedAudio(audioUrl);
-      setSuccessMessage("Voice cloning complete! Your audio is ready.");
+      setErrorMessage("");
+      setSuccessMessage("Voice cloning complete! Your audio is ready.");    
     } catch (error) {
       console.error(error);
       const message =
@@ -138,6 +149,7 @@ function App() {
         error.response?.statusText ||
         error.message ||
         "Generation failed";
+      setSuccessMessage("");  
       setErrorMessage(message);
       setGeneratedAudio(null);
     } finally {
@@ -146,109 +158,150 @@ function App() {
   };
 
   return (
-    <div className="app-root">
-      <div className="app-content">
-        <header className="hero">
-          <h1 className="hero-title">ZeroShot Voice Cloning</h1>
-        </header>
+  <div className="app-root">
+    <div className="container">
 
-        <section className="card">
-          <label className="section-label">📝 Target Text</label>
-          <textarea
-            className="text-area"
-            rows={5}
-            placeholder="Enter the text you want to hear in your voice..."
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-          />
-          <div className="field-note">{text.length} characters</div>
-        </section>
+      <header className="hero">
+       
 
-        <section className="card">
-          <div className="card-grid">
-            <div className="card-half">
-              <label className="section-label">🎧 Upload Voice Sample</label>
-              <p className="description">Choose an audio file to use as your voice reference.</p>
-              <input
-                className="file-input"
-                type="file"
-                accept="audio/*"
-                onChange={(e) => handleFileUpload(e.target.files[0])}
-              />
-            </div>
+        <h1 className="hero-title">
+          Zero-Shot Voice Cloning
+        </h1>
 
-            <div className="card-half">
-              <label className="section-label">🎤 Record Voice Sample</label>
-              <p className="description">Record a sample directly from your microphone.</p>
-              <div className="button-row">
-                <button className="btn primary-btn" onClick={startRecording} disabled={isRecording}>
-                  {isRecording ? "🔴 Recording..." : "Start Recording"}
-                </button>
-                <button className="btn danger-btn" onClick={stopRecording} disabled={!isRecording}>
-                  Stop Recording
-                </button>
-                <button className="btn secondary-btn" onClick={clearAudio}>
-                  Clear Sample
-                </button>
-              </div>
-              {isRecording && (
-                <div className="recording-indicator">
-                  <span className="recording-dot" />
-                  <span>Recording in progress...</span>
-                </div>
-              )}
-            </div>
+  <p className="hero-subtitle">
+          Clone any voice with just a few seconds of audio.
+        </p>
+
+      </header>
+
+      <div className="card">
+        <div className="section-header">
+          {/*<span className="section-number">1</span>*/}
+          <div>
+            <h3>Target Text</h3>
           </div>
-        </section>
+        </div>
 
-        {audioPreviewUrl && (
-          <section className="card audio-card">
-            <label className="audio-label">✅ Voice Sample Preview</label>
-            <audio className="audio-player" controls src={audioPreviewUrl} />
-          </section>
-        )}
+        <textarea
+          className="textarea"
+          placeholder="Type or paste the text here..."
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
 
-        <section className="card generate-card">
-          <button className="btn primary-btn full-width" onClick={generateAudio} disabled={loading || isRecording}>
-            {loading ? "✨ Cloning Voice..." : "✨ Generate Cloned Audio"}
-          </button>
-        </section>
+        <div className="char-count">
+          {text.length} / 500
+        </div>
+      </div>
 
-        {errorMessage && (
-          <div className="message-box message-error">
-            <strong>⚠️ Error:</strong> {errorMessage}
+      <div className="card">
+        <div className="section-header">
+          {/*<span className="section-number">2</span>*/}
+          <div>
+            <h3>Record Your Voice</h3>
+            {/*<p>
+              Record a clear sample of the voice you want to clone.
+            </p>*/}
           </div>
-        )}
+        </div>
 
-        {successMessage && !loading && (
-          <div className="message-box message-success">
+       <div className="record-row">
+  <div className="record-controls">
+
+  <button
+    className="btn btn-primary"
+    onClick={startRecording}
+    disabled={isRecording}
+  > {isRecording ? `Recording${recordingDots}` : "Record"}</button>
+
+  <button
+    className="btn btn-secondary"
+    onClick={stopRecording}
+    disabled={!isRecording}
+  >
+      Stop
+    </button>
+
+    <button
+      className="btn btn-secondary"
+      onClick={clearAudio}
+      disabled={!recordingCompleted || isRecording}
+    >
+      Clear
+    </button>
+
+  </div>
+
+  {audioPreviewUrl && (
+    <audio
+      className="audio-player-inline"
+      controls
+      src={audioPreviewUrl}
+    />
+  )}
+</div>
+        <div className="record-tip">
+          Recommend recording 5–30 seconds for best results.
+        </div>
+      </div>
+
+      <button
+        className="generate-button"
+        onClick={generateAudio}
+        disabled={
+        loading ||
+        isRecording ||
+        !recordingCompleted
+      }
+      >
+        {loading
+          ? "Generating..."
+          : "Generate Cloned Audio"}
+      </button>
+
+      <div className="status-wrapper">
+        {errorMessage ? (
+          <div className="status error">
+            {errorMessage}
+          </div>
+        ) : successMessage ? (
+          <div className="status success">
             {successMessage}
           </div>
-        )}
-
-        {generatedAudio && (
-          <section className="card audio-card">
-            <label className="audio-label">🎉 Your Cloned Audio</label>
-            <audio className="audio-player" controls src={generatedAudio} autoPlay />
-            <div className="audio-actions">
-              <a className="audio-download" href={generatedAudio} download="cloned-voice.wav">
-                ⬇️ Download Audio
-              </a>
-              <button className="btn secondary-btn" onClick={() => {
-                setGeneratedAudio(null);
-                setSuccessMessage("");
-                setErrorMessage("");
-              }}>
-                Clear Output
-              </button>
-            </div>
-          </section>
-        )}
+        ) : null}
       </div>
+
+     <div className="card1">
+  <div className="section-header">
+    <div>
+      <h3>Cloned Output</h3>
     </div>
-  );
+  </div>
+
+  {generatedAudio ? (
+    <div className="output-row">
+      <audio
+        className="audio-player"
+        controls
+        src={generatedAudio}
+      />
+
+      <button
+        className="btn btn-secondary output-clear-btn"
+        onClick={clearOutputAudio}
+      >
+        Clear
+      </button>
+    </div>
+  ) : (
+    <div className="output-placeholder">
+      Generated audio will appear here
+    </div>
+  )}
+</div>
+    </div>
+  </div>
+);
 }
 
 export default App;
-
-

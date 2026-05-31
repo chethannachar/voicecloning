@@ -1,754 +1,430 @@
 
-/* =========================================================
-   CLEAN PROFESSIONAL AI VOICE CLONING UI
-   Compact • Elegant • Non-Overlapping Layout
-========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
-/* =========================================================
-   ROOT VARIABLES
-========================================================= */
-
-:root {
-
-  --bg-primary: #050816;
-  --bg-secondary: #0f172a;
-
-  --card-bg: rgba(15, 23, 42, 0.72);
-
-  --card-border:
-    rgba(255,255,255,0.08);
-
-  --primary: #8b5cf6;
-  --primary-hover: #7c3aed;
-
-  --secondary: #38bdf8;
-
-  --success: #22c55e;
-  --danger: #ef4444;
-
-  --text-primary: #ffffff;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-
-  --radius-xl: 22px;
-  --radius-lg: 14px;
-
-  --shadow-main:
-    0 10px 30px rgba(0,0,0,0.32);
-
-  --transition:
-    all 0.25s ease;
-}
-
-/* =========================================================
-   RESET
-========================================================= */
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Inter',sans-serif;
 }
 
 html,
 body,
-#root {
-  width: 100%;
-  min-height: 100%;
-  overflow-x: hidden;
+#root{
+  width:100%;
+  height:100%;
+  background:#030816;
+  color:#fff;
 }
 
-body {
-
-  font-family: 'Inter', sans-serif;
-
-  background:
-    linear-gradient(
-      145deg,
-      #050816,
-      #081122,
-      #0f172a
-    );
-
-  color: white;
+body{
+  overflow:hidden;
 }
 
-/* =========================================================
-   BACKGROUND GLOW
-========================================================= */
-
-body::before {
-
-  content: "";
-
-  position: fixed;
-  inset: 0;
+.app-root{
+  min-height:100vh;
+  padding:8px 0;
 
   background:
     radial-gradient(
-      circle at top left,
-      rgba(139,92,246,0.16),
-      transparent 30%
+      circle at top center,
+      rgba(79,108,255,.20),
+      transparent 45%
     ),
-
-    radial-gradient(
-      circle at bottom right,
-      rgba(56,189,248,0.10),
-      transparent 28%
-    );
-
-  z-index: -1;
+    #030816;
 }
 
-/* =========================================================
-   APP ROOT
-========================================================= */
-
-.app-root {
-
-  width: 100%;
-  min-height: 100vh;
-
-  padding:
-    14px
-    2px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.container{
+  max-width:1600px;
+  margin:0 auto;
+  padding:0 10px;
 }
 
-/* =========================================================
-   MAIN CONTENT
-========================================================= */
+/* HERO */
 
-.app-content {
-
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-
-  gap: 16px;
+.hero{
+  text-align:center;
+  margin-bottom:8px;
 }
 
-/* =========================================================
-   HERO SECTION
-========================================================= */
+.hero-title{
+  font-size:42px;
+  line-height:1.5;
+  font-weight:800;
+  margin-top:-10px;
+  background:linear-gradient(
+    90deg,
+    #4f8cff,
+    #6f7dff,
+    #ad5cff
+  );
 
-.hero {
-
-  width: 100%;
-
-  padding:
-    8px
-    3px;
-
-  border-radius: var(--radius-xl);
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(139,92,246,0.14),
-      rgba(15,23,42,0.88)
-    );
-
-  border:
-    1px solid rgba(255,255,255,0.08);
-
-  backdrop-filter: blur(16px);
-
-  box-shadow: var(--shadow-main);
-
-  text-align: center;
-
-  overflow: hidden;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
-/* REMOVE ICON */
-
-.hero-icon {
-  display: none;
+.hero-subtitle{
+  font-size:12px;
+  color:#b7c1df;
+  margin-top:-28px;
 }
 
-/* =========================================================
-   HERO TITLE
-========================================================= */
+/* CARDS */
 
-.hero-title {
+.card{
+  background:rgba(10,16,35,.72);
 
-  font-size:
-    clamp(1.9rem, 3vw, 3rem);
+  border:1px solid rgba(99,119,255,.25);
 
-  font-weight: 800;
+  border-radius:14px;
 
-  line-height: 1.2;
+  padding:8px 10px 2px 10px;
+ 
+  margin-bottom:12px;
 
-  letter-spacing: -1px;
-
-  margin-bottom: 28px;
-
-  word-break: break-word;
-}
-
-/* =========================================================
-   HERO DESCRIPTION
-========================================================= */
-
-.hero-copy {
-
-  max-width: 900px;
-
-  margin: auto;
-
-  font-size: 0.90rem;
-
-  line-height: 1.6;
-
-  color: var(--text-secondary);
-}
-
-/* =========================================================
-   CARD
-========================================================= */
-
-.card {
-
-  width: 100%;
-
-  padding:
-    6px
-    8px;
-
-  border-radius: var(--radius-xl);
-
-  background: var(--card-bg);
-
-  border:
-    1px solid var(--card-border);
-
-  backdrop-filter: blur(18px);
-
-  box-shadow: var(--shadow-main);
-
-  transition: var(--transition);
-}
-
-.card:hover {
-
-  border-color:
-    rgba(139,92,246,0.22);
-}
-
-/* =========================================================
-   GRID
-========================================================= */
-
-.card-grid {
-
-  display: grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
-  gap: 18px;
-}
-
-/* =========================================================
-   LABELS
-========================================================= */
-
-.section-label {
-
-  display: block;
-
-  margin-bottom: 8px;
-
-  font-size: 0.92rem;
-  font-weight: 700;
-}
-
-.description {
-
-  color: var(--text-muted);
-
-  font-size: 0.82rem;
-
-  line-height: 1.5;
-
-  margin-bottom: 10px;
-}
-
-/* =========================================================
-   TARGET TEXT AREA
-========================================================= */
-
-.text-area {
-
-  width: 100%;
-
-  min-height: 88px;
-  max-height: 110px;
-
-  border-radius: var(--radius-lg);
-
-  border:
-    1px solid rgba(255,255,255,0.08);
-
-  background:
-    rgba(255,255,255,0.03);
-
-  padding:
-    12px
-    14px;
-
-  color: white;
-
-  font-size: 0.90rem;
-
-  line-height: 1.5;
-
-  resize: none;
-
-  outline: none;
-
-  transition: var(--transition);
-}
-
-.text-area:focus {
-
-  border-color:
-    rgba(139,92,246,0.7);
+  backdrop-filter:blur(20px);
 
   box-shadow:
-    0 0 0 4px rgba(139,92,246,0.12);
+    0 0 18px rgba(79,108,255,.05);
+
+  transition:.25s;
 }
 
-.text-area::placeholder {
-
-  color:
-    rgba(255,255,255,0.38);
-}
-
-/* =========================================================
-   FIELD NOTE
-========================================================= */
-
-.field-note {
-
-  margin-top: 6px;
-
-  font-size: 0.78rem;
-
-  color: var(--text-muted);
-}
-
-/* =========================================================
-   FILE INPUT
-========================================================= */
-
-.file-input {
-
-  width: 260px;
-
-  padding:
-    8px
-    10px;
-
-  border-radius: var(--radius-lg);
-
-  border:
-    1px dashed rgba(255,255,255,0.12);
-
-  background:
-    rgba(255,255,255,0.03);
-
-  color: var(--text-secondary);
-
-  font-size: 0.80rem;
-
-  cursor: pointer;
-
-  transition: var(--transition);
-}
-
-.file-input:hover {
-
-  border-color:
-    rgba(139,92,246,0.7);
-
-  background:
-    rgba(139,92,246,0.05);
-}
-
-/* =========================================================
-   BUTTON ROW
-========================================================= */
-
-.button-row {
-
-  display: flex;
-
-  justify-content: flex-end;
-
-  align-items: center;
-
-  flex-wrap: wrap;
-
-  gap: 12px;
-
-  margin-top: 8px;
-}
-
-/* =========================================================
-   BUTTONS
-========================================================= */
-
-.btn {
-
-  border: none;
-  outline: none;
-
-  border-radius: 12px;
-
-  padding:
-    10px
-    16px;
-
-  font-size: 0.82rem;
-  font-weight: 700;
-
-  cursor: pointer;
-
-  transition: var(--transition);
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  white-space: nowrap;
-}
-
-/* PRIMARY */
-
-.primary-btn {
-
-  background:
-    linear-gradient(
-      135deg,
-      #8b5cf6,
-      #7c3aed
-    );
-
-  color: white;
+.card:hover{
+  border-color:rgba(130,145,255,.45);
 
   box-shadow:
-    0 8px 20px rgba(139,92,246,0.22);
+    0 0 20px rgba(79,108,255,.12);
+}
+.card1{
+  background:rgba(10,16,35,.72);
+
+  border:1px solid rgba(99,119,255,.25);
+
+  border-radius:14px;
+
+  padding:8px 10px 2px 10px;
+ 
+  margin-bottom:12px;
+  padding-bottom:22px;
+  backdrop-filter:blur(20px);
+
+  box-shadow:
+    0 0 18px rgba(79,108,255,.05);
+
+  transition:.25s;
 }
 
-.primary-btn:hover:not(:disabled) {
+.card1:hover{
+  border-color:rgba(130,145,255,.45);
 
-  transform:
-    translateY(-2px);
+  box-shadow:
+    0 0 20px rgba(79,108,255,.12);
 }
 
-/* SECONDARY */
+/* SECTION HEADER */
 
-.secondary-btn {
-
-  background:
-    rgba(255,255,255,0.05);
-
-  color: white;
-
-  border:
-    1px solid rgba(255,255,255,0.08);
+.section-header{
+  display:flex;
+  justify-content:flex-start;
+  align-items:flex-start;
+  padding-top:5px;
+  margin-bottom:15px;
 }
 
-.secondary-btn:hover:not(:disabled) {
-
-  background:
-    rgba(255,255,255,0.08);
+.section-header > div{
+  margin-left:0;
+  width:100%;
 }
 
-/* DANGER */
-
-.danger-btn {
-
-  background:
-    linear-gradient(
-      135deg,
-      #ef4444,
-      #dc2626
-    );
-
-  color: white;
+.section-header h3{
+  font-size:18px;
+  font-weight:700;
+  margin-bottom:0;
+  text-align:left;
 }
 
-.danger-btn:hover:not(:disabled) {
-
-  transform:
-    translateY(-2px);
+.section-header p{
+  font-size:10px;
+  color:#aeb8d6;
+  margin-top:2px;
+  text-align:left;
 }
 
-/* =========================================================
-   GENERATE BUTTON
-========================================================= */
+/* TEXTAREA */
 
-.full-width {
+.textarea{
+  width:100%;
+  height:48px;
 
-  width: 100%;
+  resize:none;
 
-  padding:
-    12px;
+  border:1px solid rgba(99,119,255,.18);
 
-  font-size: 0.92rem;
+  outline:none;
+
+  border-radius:10px;
+
+  background:#071022;
+
+  color:white;
+
+  padding:10px;
+
+  font-size:12px;
+
+  transition:.2s;
 }
 
-/* =========================================================
-   RECORDING INDICATOR
-========================================================= */
-
-.recording-indicator {
-
-  margin-top: 8px;
-
-  display: flex;
-  align-items: center;
-
-  gap: 8px;
-
-  color: #fca5a5;
-
-  font-size: 0.80rem;
-  font-weight: 600;
+.textarea:focus{
+  border-color:rgba(130,145,255,.5);
 }
 
-.recording-dot {
-
-  width: 9px;
-  height: 9px;
-
-  border-radius: 50%;
-
-  background: #ef4444;
-
-  animation:
-    pulse 1s infinite;
+.textarea::placeholder{
+  color:#7c88a7;
 }
 
-@keyframes pulse {
+.char-count{
+  margin-top:1px;
 
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
+  text-align:right;
 
-  50% {
-    transform: scale(1.4);
-    opacity: 0.5;
-  }
+  font-size:9px;
 
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
+  color:#95a2c6;
 }
 
-/* =========================================================
-   AUDIO CARD
-========================================================= */
+/* RECORD SECTION */
 
-.audio-card {
+.record-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
 
-  display: flex;
-  flex-direction: column;
+  padding:8px;
 
-  gap: 10px;
+  background:rgba(79,108,255,.06);
+
+  border:1px solid rgba(99,119,255,.18);
+
+  border-radius:10px;
 }
 
-.audio-label {
-
-  font-size: 0.90rem;
-  font-weight: 700;
+.record-controls{
+  display:flex;
+  align-items:center;
+  gap:6px;
 }
 
-.audio-player {
+/* BUTTONS */
 
-  width: 100%;
-
-  height: 44px;
-
-  border-radius: 10px;
+.btn{
+  border:none;
+  padding:8px 16px;
+  border-radius:9px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.2s;
+  white-space:nowrap;
 }
 
-/* =========================================================
-   AUDIO ACTIONS
-========================================================= */
-
-.audio-actions {
-
-  display: flex;
-
-  flex-wrap: wrap;
-
-  gap: 10px;
+.btn:hover:not(:disabled){
+  transform:translateY(-1px);
 }
 
-/* =========================================================
-   DOWNLOAD BUTTON
-========================================================= */
-
-.audio-download {
-
-  text-decoration: none;
-
-  padding:
-    10px
-    16px;
-
-  border-radius: 12px;
+.btn-primary{
+  color:white;
 
   background:
     linear-gradient(
       135deg,
-      #0ea5e9,
-      #38bdf8
+      #4f6cff,
+      #945dff
     );
-
-  color: white;
-
-  font-size: 0.82rem;
-  font-weight: 700;
-
-  transition: var(--transition);
 }
 
-.audio-download:hover {
+.btn-secondary{
+  color:white;
 
-  transform:
-    translateY(-2px);
+  background:#101b38;
+
+  border:1px solid rgba(79,108,255,.25);
 }
 
-/* =========================================================
-   MESSAGE BOX
-========================================================= */
-
-.message-box {
-
-  width: 100%;
-
-  border-radius: 14px;
-
-  padding:
-    10px
-    14px;
-
-  font-size: 0.82rem;
-  font-weight: 600;
-
-  line-height: 1.5;
+.btn:disabled{
+  opacity:.5;
+  cursor:not-allowed;
 }
 
-.message-error {
+/* AUDIO */
 
-  background:
-    rgba(239,68,68,0.10);
-
-  border:
-    1px solid rgba(239,68,68,0.18);
-
-  color: #fecaca;
+.audio-player-inline{
+  width:220px;
+  height:34px;
+  margin-left:auto;
 }
 
-.message-success {
-
-  background:
-    rgba(34,197,94,0.10);
-
-  border:
-    1px solid rgba(34,197,94,0.18);
-
-  color: #bbf7d0;
+.audio-player{
+  width:100%;
+  height:36px;
 }
 
-/* =========================================================
-   SCROLLBAR
-========================================================= */
+.record-tip{
+  margin-top:4px;
 
-::-webkit-scrollbar {
-  width: 7px;
+  color:#aeb8d6;
+
+  font-size:10px;
 }
 
-::-webkit-scrollbar-track {
-  background: #0f172a;
-}
+/* GENERATE BUTTON */
 
-::-webkit-scrollbar-thumb {
+.generate-button{
+  display:block;
+
+  width:1490px;
+
+  height:46px;
+
+  margin:0 auto 8px auto;
+
+  border:none;
+
+  border-radius:12px;
+
+  cursor:pointer;
+
+  color:white;
+
+  font-size:14px;
+  font-weight:700;
 
   background:
     linear-gradient(
-      180deg,
-      #8b5cf6,
-      #38bdf8
+      90deg,
+      #4f6cff,
+      #945dff
     );
 
-  border-radius: 999px;
+  box-shadow:
+    0 6px 18px rgba(79,108,255,.15);
+
+  transition:.2s;
 }
 
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media (max-width: 900px) {
-
-  .card-grid {
-
-    grid-template-columns: 1fr;
-  }
-
-  .file-input {
-
-    width: 100%;
-  }
+.generate-button:hover:not(:disabled){
+  transform:translateY(-1px);
 }
 
-@media (max-width: 768px) {
-
-  .app-root {
-
-    padding: 12px;
-  }
-
-  .button-row {
-
-    justify-content: flex-start;
-  }
-
-  .btn,
-  .audio-download {
-
-    width: 100%;
-  }
-
-  .audio-actions {
-
-    flex-direction: column;
-  }
+.generate-button:disabled{
+  opacity:.6;
 }
 
-@media (max-width: 480px) {
+/* STATUS */
 
-  .hero-title {
+.status-wrapper{
+  margin-bottom:5px;
+}
 
-    font-size: 1.6rem;
+.status{
+  padding:8px 10px;
+
+  border-radius:8px;
+
+  font-size:11px;
+}
+
+.success{
+  background:rgba(0,255,170,.08);
+  color:#7ff7cf;
+}
+
+.error{
+  background:rgba(255,0,80,.08);
+  color:#ff9db3;
+}
+
+/* OUTPUT */
+
+.output-placeholder{
+  height:42px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:10px;
+
+  background:rgba(79,108,255,.06);
+
+  border:1px solid rgba(99,119,255,.18);
+
+  color:#aeb7d3;
+  font-size:11px;
+}
+
+.clear-output-btn{
+  margin-top:8px;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+  width:6px;
+}
+
+::-webkit-scrollbar-thumb{
+  background:#33417d;
+  border-radius:999px;
+}
+
+/* OUTPUT AUDIO ROW */
+
+.output-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.output-row .audio-player{
+  flex:1;
+  width:auto;
+}
+
+.output-clear-btn{
+  min-width:90px;
+  height:36px;
+  flex-shrink:0;
+}
+/* MOBILE */
+
+@media(max-width:900px){
+
+  body{
+    overflow:auto;
   }
 
-  .text-area {
+  .hero-title{
+    font-size:28px;
+  }
 
-    min-height: 80px;
+  .record-row{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .audio-player-inline{
+    width:100%;
+    margin-left:0;
+  }
+
+  .record-controls{
+    flex-wrap:wrap;
+  }
+
+  .generate-button{
+    width:100%;
   }
 }
 
